@@ -1,0 +1,129 @@
+import React, { Component } from 'react';
+import './Slider.css'
+
+class Slider extends Component {
+
+    state = {
+        currentSlide = 0
+    }
+
+    slideLeft() {
+        this.setState({ currentSlide : currentSlide + 1})
+        if(currentSlide > 3)
+    }
+
+    render() {
+        return(
+            <div className="container">
+                <div class="slider-container">
+                    <div
+                        class="slide active"
+                        style={{backgroundImage:`url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1440&q=80')`}}
+                    ></div>
+                    <div
+                        class="slide"
+                        style={{backgroundImage:`url('https://images.unsplash.com/photo-1588392382834-a891154bca4d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1510&q=80')`}}
+                    ></div>
+                    <div
+                        class="slide"
+                        style={{backgroundImage:`url('https://images.unsplash.com/photo-1470770903676-69b98201ea1c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80')`}}
+                    ></div>
+
+                    <button class="arrow left-arrow" id="left" onClick={() => this.slideLeft}>
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <button class="arrow right-arrow" id="right">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+             </div>
+        );
+    }
+}
+
+export default Slider;
+
+
+
+
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    font-family: 'Roboto';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    background-position: center center;
+    background-size: cover;
+    transition: 0.4s ease;   
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.7);
+    z-index: -1;
+}
+
+.slider-container {
+    
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    height: 70vh;
+    width: 70vw;
+    position: relative;
+    overflow: hidden;
+}
+
+.slide {
+    opacity: 0;
+    height: 100vh;
+    width: 100vw;
+    background-position: center center;
+    background-size: cover;
+    position: absolute;
+    top: -15vh;
+    left: -15vw;
+    transition: 0.4s ease;
+    z-index: 1;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.arrow {
+    position: fixed;
+    background: none;
+    background-color: transparent;
+    padding: 15px;
+    color: #fff;
+    font-size: 30px;
+    top : 50%;
+    transform : translateY(-50%);
+    cursor: pointer;
+    z-index: 2;
+    background: 1px solid black;
+}
+
+.arrow:focus {
+    outline: none;
+}
+
+.left-arrow {
+    left : calc(15vw - 1px);
+}
+
+.right-arrow {
+    right : calc(15vw - 1px);
+}

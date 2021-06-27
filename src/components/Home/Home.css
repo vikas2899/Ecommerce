@@ -1,0 +1,18 @@
+* {
+  box-sizing: border-box;
+}
+
+.h-main-container {
+  margin-top: -30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.h-cards-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  flex-wrap: wrap;
+}

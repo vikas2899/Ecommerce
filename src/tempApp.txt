@@ -1,0 +1,59 @@
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { fetchProducts } from "./actions/index";
+import "./App.css";
+import Navbar from "./components/Navbar/Navbar";
+import Slider from "./components/Slider/Slider";
+import Card from "./components/Cards/Card";
+import { SliderData } from "./components/Slider/SliderData";
+
+class App extends Component {
+  componentDidMount() {
+    this.props.getProducts();
+  }
+
+  generateProducts() {
+    return this.props.productsList.data.map((product) => {
+      return (
+        <Card
+          productTitle={product["title"]}
+          productImage={product["image"]}
+          productPrice={product["price"]}
+          key={product["id"]}
+        />
+      );
+    });
+  }
+
+  render() {
+    return (
+      <>
+        <Navbar />
+        <div className="main-container">
+          <section>
+            <Slider slides={SliderData} />
+          </section>
+          <section className="cards-container">
+            {this.props.productsList.data !== undefined
+              ? this.generateProducts()
+              : null}
+          </section>
+        </div>
+      </>
+    );
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    productsList: state.fetchProducts,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getProducts: () => dispatch(fetchProducts()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

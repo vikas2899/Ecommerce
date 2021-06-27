@@ -1,0 +1,38 @@
+.product-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 80px;
+  align-items: center;
+}
+
+.product-image {
+  width: 500px;
+  height: 500px;
+  padding-left: 100px;
+}
+
+.product-details {
+  margin-left: 50px;
+}
+
+.p-image {
+  height: 100%;
+  width: 100%;
+}
+
+.p-title,
+.p-price {
+  font-family: "Montserrat", sans-serif;
+}
+
+.p-category {
+  font-style: italic;
+  font-family: "Montserrat", sans-serif;
+  text-decoration: underline;
+}
+
+.p-description {
+  width: 700px;
+  text-align: justify;
+  font-family: "Montserrat", sans-serif;
+}

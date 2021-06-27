@@ -1,0 +1,49 @@
+.card-body {
+  border: none;
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  width: 100%;
+  transition: transform 0.3s;
+  margin: 5px 0px;
+  display: flex;
+  flex-direction: row;
+}
+
+article:hover {
+  transform: translateY(0.5px);
+  box-shadow: 2px 2px 26px 0px rgba(0, 0, 0, 0.3);
+}
+
+.card-image {
+  height: 300px;
+  width: 250px;
+  padding: 20px;
+}
+
+.image-container {
+  margin-right: 20px;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.text {
+  padding: 0 20px 20px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.text .button {
+  font-family: "Montserrat", sans-serif;
+  background: red;
+  border-radius: 12px;
+  border: none;
+  color: #fff;
+  width: 150px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 3px 20px;
+}

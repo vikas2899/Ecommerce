@@ -1,0 +1,45 @@
+.nav {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0.5rem 1rem;
+  background-color: brown;
+}
+
+.navbar-nav {
+  display: flex;
+  list-style-type: none;
+}
+
+.nav-item {
+  padding-left: 60px;
+}
+
+.nav-item .nav-link {
+  text-decoration: none;
+  color: wheat;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+.nav-text {
+  font-family: "Montserrat", sans-serif;
+}
+
+.brand-name {
+  color: wheat;
+  font-family: "Montserrat", sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.login-button {
+  background: transparent;
+  border: none;
+  color: wheat;
+  font-family: "Montserrat", sans-serif;
+  cursor: pointer;
+}

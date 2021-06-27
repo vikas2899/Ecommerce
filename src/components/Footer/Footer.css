@@ -1,0 +1,21 @@
+.footer {
+  background-color: brown;
+  height: 150px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: wheat;
+  font-family: "Montserrat", sans-serif;
+  margin-top: 80px;
+}
+
+.menu ul {
+  display: flex;
+  list-style-type: none;
+}
+
+.menu ul li {
+  margin-left: 25px;
+  cursor: pointer;
+}
