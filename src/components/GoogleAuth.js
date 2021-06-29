@@ -52,12 +52,16 @@ class GoogleAuth extends Component {
       );
     } else {
       return (
-        // <button className="login-button" onClick={this.onSignInClick}>
-        //   Login
-        // </button>
-        <Link onClick={this.onSignInClick} className="login-button">
+        <button
+          className="login-button"
+          onClick={this.onSignInClick}
+          style={{ fontSize: "16px" }}
+        >
           Login
-        </Link>
+        </button>
+        // <Link to="" onClick={this.onSignInClick} className="login-button">
+        //   Login
+        // </Link>
       );
     }
   }

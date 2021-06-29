@@ -34,6 +34,16 @@ const Navbar = (props) => {
               </Link>
             )}
           </li>
+          {props.auth.isSignedIn ? (
+            <li className="nav-item">
+              <Link
+                to={`/view/${props.auth.userId}/orders`}
+                className="brand-name"
+              >
+                Orders
+              </Link>
+            </li>
+          ) : null}
           <li className="nav-item">
             <GoogleAuth />
           </li>

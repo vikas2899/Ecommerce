@@ -6,6 +6,7 @@ import Footer from "./components/Footer/Footer";
 import ProductsList from "./components/ProductsList/ProductsList";
 import ProductsDescription from "./components/ProductDescription/ProductsDescription";
 import Cart from "./components/Cart/Cart";
+import Order from "./Order/Order";
 import "./App.css";
 
 class App extends Component {
@@ -21,6 +22,7 @@ class App extends Component {
         />
         <Route path="/:category" exact component={ProductsList} />
         <Route path="/view/:id/cart" exact component={Cart} />
+        <Route path="/view/:id/orders" exact component={Order} />
         <Footer />
       </BrowserRouter>
     );

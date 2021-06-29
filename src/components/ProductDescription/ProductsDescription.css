@@ -62,3 +62,32 @@
 .buyBtn:hover {
   transform: translateY(2px);
 }
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-header {
+  margin-top: 55px;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+}
+
+.modal-body {
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+}
+
+.modal-btn {
+  background: transparent;
+  border: none;
+  font-family: "Montserrat", sans-serif;
+  background-color: rgba(97, 255, 124, 0.9);
+  padding: 8px 20px;
+  cursor: pointer;
+  border-radius: 8px;
+  align-content: center;
+}

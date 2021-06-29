@@ -1,9 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchProductById, addToCart } from "../../actions/index";
+import Modal from "react-modal";
+import { fetchProductById, addToCart, addToOrder } from "../../actions/index";
 import "./ProductsDescription.css";
 
+Modal.setAppElement("#root");
 class ProductsDescription extends Component {
+  state = {
+    isModalOpen: false,
+    isLoginModal: false,
+    isBuyClick: false,
+  };
+
   componentDidMount() {
     const { id } = this.props.match.params;
     this.props.fetchProductById(id);
@@ -12,20 +20,29 @@ class ProductsDescription extends Component {
   addToCart = (productId, pTitle, pPrice) => {
     if (this.props.auth.isSignedIn) {
       this.props.addToCart(this.props.auth.userId, productId, pTitle, pPrice);
-      alert("Item added to Cart");
+      this.setState({ isModalOpen: true });
     } else {
-      alert("Login First");
+      this.setState({ isLoginModal: true });
     }
   };
 
-  showModal = () => {
-    return (
-      <section>
-        <p>Item added to cart</p>
-        <button>Ok</button>
-      </section>
-    );
+  buyItem = (productId, pTitle, pPrice) => {
+    if (this.props.auth.isSignedIn) {
+      this.props.addToOrder(this.props.auth.userId, productId, pTitle, pPrice);
+      this.setState({ isBuyClick: true });
+    } else {
+      this.setState({ isLoginModal: true });
+    }
   };
+
+  // showModal = () => {
+  //   return (
+  //     <section>
+  //       <p>Item added to cart</p>
+  //       <button>Ok</button>
+  //     </section>
+  //   );
+  // };
 
   getProductDetails() {
     return (
@@ -60,7 +77,112 @@ class ProductsDescription extends Component {
           >
             Add to Cart
           </button>
-          <button className="buyBtn">Buy Now</button>
+          <button
+            className="buyBtn"
+            onClick={() =>
+              this.buyItem(
+                this.props.productDetails.data.id,
+                this.props.productDetails.data.title,
+                this.props.productDetails.data.price
+              )
+            }
+          >
+            Buy Now
+          </button>
+        </section>
+        <section>
+          <Modal
+            isOpen={this.state.isModalOpen}
+            onRequestClose={() => this.setState({ isModalOpen: false })}
+            style={{
+              overlay: {
+                backgroundColor: `rgba(${192},${192},${192},${0.3})`,
+              },
+              content: {
+                height: "300px",
+                alignSelf: "center",
+                top: "30%",
+                left: "35%",
+                width: "30%",
+                alignContent: "center",
+              },
+            }}
+          >
+            <div className="modal-container">
+              <h2 className="modal-header">Message</h2>
+              <p className="modal-body">
+                This product is added to your cart succesfully.
+              </p>
+              <button
+                onClick={() => this.setState({ isModalOpen: false })}
+                className="modal-btn"
+              >
+                Close
+              </button>
+            </div>
+          </Modal>
+        </section>
+        <section>
+          <Modal
+            isOpen={this.state.isLoginModal}
+            onRequestClose={() => this.setState({ isLoginModal: false })}
+            style={{
+              overlay: {
+                backgroundColor: `rgba(${192},${192},${192},${0.3})`,
+              },
+              content: {
+                height: "300px",
+                alignSelf: "center",
+                top: "30%",
+                left: "35%",
+                width: "30%",
+                alignContent: "center",
+              },
+            }}
+          >
+            <div className="modal-container">
+              <h2 className="modal-header">Warning</h2>
+              <p className="modal-body">Please login first</p>
+              <button
+                onClick={() => this.setState({ isLoginModal: false })}
+                className="modal-btn"
+              >
+                Close
+              </button>
+            </div>
+          </Modal>
+        </section>
+        <section>
+          <Modal
+            isOpen={this.state.isBuyClick}
+            onRequestClose={() => this.setState({ isBuyClick: false })}
+            style={{
+              overlay: {
+                backgroundColor: `rgba(${192},${192},${192},${0.3})`,
+              },
+              content: {
+                height: "300px",
+                alignSelf: "center",
+                top: "30%",
+                left: "35%",
+                width: "30%",
+                alignContent: "center",
+              },
+            }}
+          >
+            <div className="modal-container">
+              <h2 className="modal-header">Message</h2>
+              <p className="modal-body">
+                This product is purchased succesfully. We will find you.
+              </p>
+              <button
+                onClick={() => this.setState({ isBuyClick: false })}
+                className="modal-btn"
+              >
+                Close
+              </button>
+            </div>
+          </Modal>
         </section>
       </>
     );
@@ -90,6 +212,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchProductById: (id) => dispatch(fetchProductById(id)),
     addToCart: (userId, pid, ptitle, pprice) =>
       dispatch(addToCart(userId, pid, ptitle, pprice)),
+    addToOrder: (userId, pid, ptitle, pprice) =>
+      dispatch(addToOrder(userId, pid, ptitle, pprice)),
   };
 };
 

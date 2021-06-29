@@ -5,3 +5,6 @@ export const SIGN_OUT = "SIGN_OUT";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const VIEW_CART = "VIEW_CART";
 export const RESET_CART = "RESET_CART";
+export const BUY_PRODUCT = "BUY_PRODUCT";
+export const VIEW_ORDERS = "VIEW_ORDERS";
+export const RESET_ORDERS = "RESET_ORDERS";

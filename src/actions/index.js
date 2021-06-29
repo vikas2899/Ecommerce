@@ -9,6 +9,9 @@ import {
   ADD_TO_CART,
   VIEW_CART,
   RESET_CART,
+  BUY_PRODUCT,
+  VIEW_ORDERS,
+  RESET_ORDERS,
 } from "../types/types";
 
 export const fetchProducts = () => {
@@ -44,15 +47,25 @@ export const addToCart = (userId, productId, pTitle, pPrice) => {
     try {
       const resget = await jsonServer.get(`/usersCart/${userId}`);
       let oldCart = resget.data.cart;
-      if (oldCart.some((item) => item.productId === productId)) {
-        return;
-      }
-      const res = await jsonServer.put(`/usersCart/${userId}`, {
-        cart: [...oldCart, { productId, pTitle, pPrice }],
-      });
+      if (oldCart !== undefined) {
+        if (oldCart.some((item) => item.productId === productId)) {
+          return;
+        }
+        const res = await jsonServer.put(`/usersCart/${userId}`, {
+          cart: [...oldCart, { productId, pTitle, pPrice }],
+          order: resget.data.order,
+        });
 
-      console.log("resput", res);
-      dispatch({ type: ADD_TO_CART, payload: res.data.cart });
+        console.log("resput", res);
+        dispatch({ type: ADD_TO_CART, payload: res.data.cart });
+      } else {
+        const res = await jsonServer.put(`/usersCart/${userId}`, {
+          cart: [{ productId, pTitle, pPrice }],
+          order: resget.data.order, ///
+        });
+        console.log("else", res);
+        dispatch({ type: ADD_TO_CART, payload: res.data.cart });
+      }
     } catch (e) {
       const res = await jsonServer.post("/usersCart", {
         id: userId,
@@ -75,5 +88,56 @@ export const viewCart = (userId) => {
 export const resetCart = () => {
   return {
     type: RESET_CART,
+  };
+};
+
+export const addToOrder = (userId, productId, pTitle, pPrice) => {
+  console.log(pTitle, pPrice);
+  return async function (dispatch, getState) {
+    try {
+      const resget = await jsonServer.get(`/usersCart/${userId}`);
+      if (resget.data.order !== undefined) {
+        let oldOrder = resget.data.order;
+        if (oldOrder.some((item) => item.productId === productId)) {
+          return;
+        }
+        const res = await jsonServer.put(`/usersCart/${userId}`, {
+          order: [...oldOrder, { productId, pTitle, pPrice }],
+          cart: resget.data.cart,
+        });
+
+        console.log("resput", res);
+      } else {
+        const res = await jsonServer.put(`/usersCart/${userId}`, {
+          id: userId,
+          order: [{ productId, pTitle, pPrice }],
+          cart: resget.data.cart,
+        });
+        console.log("else", res);
+      }
+      // dispatch({ type: BUY_PRODUCT, payload: res.data.order });
+    } catch (e) {
+      console.log(e);
+      const res = await jsonServer.post("/usersCart", {
+        id: userId,
+        order: [{ productId, pTitle, pPrice }],
+      });
+      console.log("post", res.data);
+      // dispatch({ type: BUY_PRODUCT, payload: res.data.order });
+    }
+  };
+};
+
+export const viewOrders = (userId) => {
+  return async function (dispatch, getState) {
+    const response = await jsonServer.get(`/usersCart/${userId}`);
+    const order = response.data.order;
+    dispatch({ type: VIEW_ORDERS, payload: order });
+  };
+};
+
+export const resetOrder = () => {
+  return {
+    type: RESET_ORDERS,
   };
 };
