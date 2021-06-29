@@ -1,17 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { signIn, signOut } from "../actions/index";
+import { Link } from "react-router-dom";
+import { signIn, signOut, resetCart } from "../actions/index";
 import "../components/Navbar/Navbar.css";
 
 class GoogleAuth extends Component {
-  buttonStyle = {
-    textDecoration: "none",
-    color: "wheat",
-    cursor: "pointer",
-    background: "transparent",
-    border: "none",
-  };
-
   componentDidMount() {
     window.gapi.load("client:auth2", () => {
       window.gapi.client
@@ -42,6 +35,7 @@ class GoogleAuth extends Component {
 
   onSignOutClick = () => {
     this.auth.signOut();
+    this.props.resetCart();
   };
 
   renderAuthButton() {
@@ -49,15 +43,21 @@ class GoogleAuth extends Component {
       return null;
     } else if (this.props.isSignedIn) {
       return (
-        <button className="login-button" onClick={this.onSignOutClick}>
+        // <button className="login-button" onClick={this.onSignOutClick}>
+        //   Logout
+        // </button>
+        <Link to="/" onClick={this.onSignOutClick} className="login-button">
           Logout
-        </button>
+        </Link>
       );
     } else {
       return (
-        <button className="login-button" onClick={this.onSignInClick}>
+        // <button className="login-button" onClick={this.onSignInClick}>
+        //   Login
+        // </button>
+        <Link onClick={this.onSignInClick} className="login-button">
           Login
-        </button>
+        </Link>
       );
     }
   }
@@ -77,6 +77,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     signIn: (userId) => dispatch(signIn(userId)),
     signOut: () => dispatch(signOut()),
+    resetCart: () => dispatch(resetCart()),
   };
 };
 

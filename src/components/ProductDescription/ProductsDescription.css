@@ -36,3 +36,29 @@
   text-align: justify;
   font-family: "Montserrat", sans-serif;
 }
+
+.addToCartBtn {
+  background: transparent;
+  border: none;
+  font-family: "Montserrat", sans-serif;
+  background-color: rgba(252, 240, 111, 0.9);
+  padding: 8px 20px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.buyBtn {
+  background: transparent;
+  border: none;
+  font-family: "Montserrat", sans-serif;
+  background-color: rgba(97, 255, 124, 0.9);
+  padding: 8px 20px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-left: 5px;
+}
+
+.addToCartBtn:hover,
+.buyBtn:hover {
+  transform: translateY(2px);
+}

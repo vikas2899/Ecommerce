@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import ProductsList from "./components/ProductsList/ProductsList";
 import ProductsDescription from "./components/ProductDescription/ProductsDescription";
+import Cart from "./components/Cart/Cart";
 import "./App.css";
 
 class App extends Component {
@@ -13,8 +14,13 @@ class App extends Component {
       <BrowserRouter>
         <Navbar />
         <Route path="/" exact component={Home} />
+        <Route
+          path="/products/:category/:id"
+          exact
+          component={ProductsDescription}
+        />
         <Route path="/:category" exact component={ProductsList} />
-        <Route path="/:category/:id" exact component={ProductsDescription} />
+        <Route path="/view/:id/cart" exact component={Cart} />
         <Footer />
       </BrowserRouter>
     );

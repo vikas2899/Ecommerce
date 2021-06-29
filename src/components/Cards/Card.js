@@ -17,7 +17,7 @@ const Card = (props) => {
           <h3>{props.productTitle}</h3>
           <p>Price : ${props.productPrice}</p>
           <Link
-            to={`/${props.productCategory}/${props.productId}`}
+            to={`/products/${props.productCategory}/${props.productId}`}
             className="button"
           >
             View

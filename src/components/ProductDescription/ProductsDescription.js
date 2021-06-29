@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchProductById } from "../../actions/index";
+import { fetchProductById, addToCart } from "../../actions/index";
 import "./ProductsDescription.css";
 
 class ProductsDescription extends Component {
@@ -9,7 +9,23 @@ class ProductsDescription extends Component {
     this.props.fetchProductById(id);
   }
 
-  componentWillUnmount() {}
+  addToCart = (productId, pTitle, pPrice) => {
+    if (this.props.auth.isSignedIn) {
+      this.props.addToCart(this.props.auth.userId, productId, pTitle, pPrice);
+      alert("Item added to Cart");
+    } else {
+      alert("Login First");
+    }
+  };
+
+  showModal = () => {
+    return (
+      <section>
+        <p>Item added to cart</p>
+        <button>Ok</button>
+      </section>
+    );
+  };
 
   getProductDetails() {
     return (
@@ -32,7 +48,19 @@ class ProductsDescription extends Component {
           <p className="p-description">
             {this.props.productDetails.data.description}
           </p>
-          <button>Buy Now</button>
+          <button
+            className="addToCartBtn"
+            onClick={() =>
+              this.addToCart(
+                this.props.productDetails.data.id,
+                this.props.productDetails.data.title,
+                this.props.productDetails.data.price
+              )
+            }
+          >
+            Add to Cart
+          </button>
+          <button className="buyBtn">Buy Now</button>
         </section>
       </>
     );
@@ -52,12 +80,16 @@ class ProductsDescription extends Component {
 const mapStateToProps = (state) => {
   return {
     productDetails: state.fetchProduct.product,
+    auth: state.auth,
+    modalShow: state.cart.modalShow,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchProductById: (id) => dispatch(fetchProductById(id)),
+    addToCart: (userId, pid, ptitle, pprice) =>
+      dispatch(addToCart(userId, pid, ptitle, pprice)),
   };
 };
 

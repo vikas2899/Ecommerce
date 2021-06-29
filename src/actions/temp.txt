@@ -8,7 +8,6 @@ import {
   SIGN_OUT,
   ADD_TO_CART,
   VIEW_CART,
-  RESET_CART,
 } from "../types/types";
 
 export const fetchProducts = () => {
@@ -38,28 +37,21 @@ export const signOut = () => {
   };
 };
 
-export const addToCart = (userId, productId, pTitle, pPrice) => {
-  console.log(pTitle, pPrice);
+export const addToCart = (userId, productId) => {
   return async function (dispatch, getState) {
     try {
-      const resget = await jsonServer.get(`/usersCart/${userId}`);
-      let oldCart = resget.data.cart;
-      if (oldCart.some((item) => item.productId === productId)) {
-        return;
-      }
+      const response = await jsonServer.get(`/usersCart/${userId}`);
+      const productsIdList = response.data.productsId;
       const res = await jsonServer.put(`/usersCart/${userId}`, {
-        cart: [...oldCart, { productId, pTitle, pPrice }],
+        productsId: [...productsIdList, productId],
       });
-
-      console.log("resput", res);
-      dispatch({ type: ADD_TO_CART, payload: res.data.cart });
+      dispatch({ type: ADD_TO_CART, payload: res.data });
     } catch (e) {
       const res = await jsonServer.post("/usersCart", {
         id: userId,
-        cart: [{ productId, pTitle, pPrice }],
+        productsId: [productId],
       });
-      console.log("post", res.data);
-      dispatch({ type: ADD_TO_CART, payload: res.data.cart });
+      dispatch({ type: ADD_TO_CART, payload: res.data });
     }
   };
 };
@@ -67,13 +59,7 @@ export const addToCart = (userId, productId, pTitle, pPrice) => {
 export const viewCart = (userId) => {
   return async function (dispatch, getState) {
     const response = await jsonServer.get(`/usersCart/${userId}`);
-    const cart = response.data.cart;
-    dispatch({ type: VIEW_CART, payload: cart });
-  };
-};
-
-export const resetCart = () => {
-  return {
-    type: RESET_CART,
+    const productsList = response.data.productsId;
+    dispatch({ type: VIEW_CART, payload: productsList });
   };
 };
