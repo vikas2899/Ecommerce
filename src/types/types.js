@@ -8,3 +8,5 @@ export const RESET_CART = "RESET_CART";
 export const BUY_PRODUCT = "BUY_PRODUCT";
 export const VIEW_ORDERS = "VIEW_ORDERS";
 export const RESET_ORDERS = "RESET_ORDERS";
+export const DELETE_ORDER = "DELETE_ORDER";
+export const DELETE_CART = "DELETE_CART";

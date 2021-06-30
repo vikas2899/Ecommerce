@@ -1,4 +1,4 @@
-import { VIEW_ORDERS, RESET_ORDERS } from "../types/types";
+import { VIEW_ORDERS, RESET_ORDERS, DELETE_ORDER } from "../types/types";
 
 const INITIAL_STATE = {
   userOrders: {},
@@ -10,6 +10,12 @@ export const viewOrdersReducer = (state = INITIAL_STATE, action) => {
       return { ...state.userOrders, ...action.payload };
     case RESET_ORDERS:
       return INITIAL_STATE;
+    case DELETE_ORDER:
+      if (action.payload !== []) {
+        return { ...action.payload };
+      } else {
+        return null;
+      }
     default:
       return state;
   }

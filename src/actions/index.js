@@ -12,6 +12,8 @@ import {
   BUY_PRODUCT,
   VIEW_ORDERS,
   RESET_ORDERS,
+  DELETE_ORDER,
+  DELETE_CART,
 } from "../types/types";
 
 export const fetchProducts = () => {
@@ -91,6 +93,29 @@ export const resetCart = () => {
   };
 };
 
+export const deleteCart = (id, userId) => {
+  console.log(id, userId);
+  return async function (dispatch, getState) {
+    const res = await jsonServer.get(`/usersCart/${userId}`);
+    const currentCart = res.data.cart;
+    let newCart = [];
+    if (currentCart) {
+      currentCart.map((c) => {
+        if (c.productId !== id) {
+          newCart.push(c);
+        }
+      });
+      console.log("newCart", newCart);
+      const res2 = await jsonServer.put(`/usersCart/${userId}`, {
+        cart: newCart,
+        order: res.data.order,
+      });
+      console.log("cart", res2);
+      dispatch({ type: DELETE_CART, payload: res2.data.cart });
+    }
+  };
+};
+
 export const addToOrder = (userId, productId, pTitle, pPrice) => {
   console.log(pTitle, pPrice);
   return async function (dispatch, getState) {
@@ -139,5 +164,26 @@ export const viewOrders = (userId) => {
 export const resetOrder = () => {
   return {
     type: RESET_ORDERS,
+  };
+};
+
+export const deleteOrder = (id, userId) => {
+  return async function (dispatch, getState) {
+    const res = await jsonServer.get(`/usersCart/${userId}`);
+    const currentOrder = res.data.order;
+    let newOrder = [];
+    if (currentOrder) {
+      currentOrder.map((o) => {
+        if (o.productId !== id) {
+          newOrder.push(o);
+        }
+      });
+      const res2 = await jsonServer.put(`/usersCart/${userId}`, {
+        cart: res.data.cart,
+        order: newOrder,
+      });
+      console.log(res2);
+      dispatch({ type: DELETE_ORDER, payload: res2.data.order });
+    }
   };
 };

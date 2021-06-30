@@ -26,6 +26,8 @@ class Cart extends Component {
             title={this.props.productsList[k].pTitle}
             price={this.props.productsList[k].pPrice}
             key={this.props.productsList[k].pTitle}
+            id={this.props.productsList[k].productId}
+            type="cart"
           />
         );
       });

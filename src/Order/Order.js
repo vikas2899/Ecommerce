@@ -15,9 +15,11 @@ class Order extends Component {
       return Object.keys(this.props.productsList).map((k) => {
         return (
           <ItemSummary
+            id={this.props.productsList[k].productId}
             title={this.props.productsList[k].pTitle}
             price={this.props.productsList[k].pPrice}
-            key={this.props.productsList[k].pTitle}
+            key={this.props.productsList[k].productId}
+            type="order"
           />
         );
       });
