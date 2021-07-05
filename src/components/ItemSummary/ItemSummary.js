@@ -26,6 +26,13 @@ class ItemSummary extends Component {
           </p>
         </section>
         <section className="item-summary-fun">
+          {/* <button className="item-summary-button-view">View</button> */}
+          <Link
+            to={`/products/${this.props.category}/${this.props.id}`}
+            className="item-summary-button-view"
+          >
+            View
+          </Link>
           <button
             className="item-summary-button"
             // onClick={() =>

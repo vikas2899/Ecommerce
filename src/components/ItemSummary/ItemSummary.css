@@ -12,14 +12,30 @@
   font-family: "Montserrat", sans-serif;
 }
 
-.item-summary-button {
+.item-summary-button,
+.item-summary-button-view {
   font-family: "Montserrat", sans-serif;
-  background: red;
+  background: rgb(255, 63, 63);
   border-radius: 12px;
   border: none;
-  color: #fff;
+  color: black;
   font-weight: 600;
   cursor: pointer;
   text-decoration: none;
   padding: 6px 20px;
+}
+
+.item-summary-button-view {
+  background: rgba(97, 255, 124, 0.9);
+  margin-right: 15px;
+}
+
+.item-summary-button-view:hover {
+  background: rgb(32, 255, 69);
+  transform: translateY(1px);
+}
+
+.item-summary-button:hover {
+  background: rgb(255, 20, 20);
+  transform: translateY(1px);
 }

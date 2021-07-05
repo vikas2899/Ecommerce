@@ -13,12 +13,14 @@ class Order extends Component {
   renderOrderList() {
     if (Object.keys(this.props.productsList).length >= 1) {
       return Object.keys(this.props.productsList).map((k) => {
+        console.log(this.props.productsList[k]);
         return (
           <ItemSummary
             id={this.props.productsList[k].productId}
             title={this.props.productsList[k].pTitle}
             price={this.props.productsList[k].pPrice}
             key={this.props.productsList[k].productId}
+            category={this.props.productsList[k].pCategory}
             type="order"
           />
         );

@@ -43,8 +43,8 @@ export const signOut = () => {
   };
 };
 
-export const addToCart = (userId, productId, pTitle, pPrice) => {
-  console.log(pTitle, pPrice);
+export const addToCart = (userId, productId, pTitle, pPrice, pCategory) => {
+  console.log(pTitle, pPrice, pCategory);
   return async function (dispatch, getState) {
     try {
       const resget = await jsonServer.get(`/usersCart/${userId}`);
@@ -54,7 +54,7 @@ export const addToCart = (userId, productId, pTitle, pPrice) => {
           return;
         }
         const res = await jsonServer.put(`/usersCart/${userId}`, {
-          cart: [...oldCart, { productId, pTitle, pPrice }],
+          cart: [...oldCart, { productId, pTitle, pPrice, pCategory }],
           order: resget.data.order,
         });
 
@@ -62,7 +62,7 @@ export const addToCart = (userId, productId, pTitle, pPrice) => {
         dispatch({ type: ADD_TO_CART, payload: res.data.cart });
       } else {
         const res = await jsonServer.put(`/usersCart/${userId}`, {
-          cart: [{ productId, pTitle, pPrice }],
+          cart: [{ productId, pTitle, pPrice, pCategory }],
           order: resget.data.order, ///
         });
         console.log("else", res);
@@ -71,7 +71,7 @@ export const addToCart = (userId, productId, pTitle, pPrice) => {
     } catch (e) {
       const res = await jsonServer.post("/usersCart", {
         id: userId,
-        cart: [{ productId, pTitle, pPrice }],
+        cart: [{ productId, pTitle, pPrice, pCategory }],
       });
       console.log("post", res.data);
       dispatch({ type: ADD_TO_CART, payload: res.data.cart });
@@ -116,8 +116,8 @@ export const deleteCart = (id, userId) => {
   };
 };
 
-export const addToOrder = (userId, productId, pTitle, pPrice) => {
-  console.log(pTitle, pPrice);
+export const addToOrder = (userId, productId, pTitle, pPrice, pCategory) => {
+  console.log(pTitle, pPrice, pCategory);
   return async function (dispatch, getState) {
     try {
       const resget = await jsonServer.get(`/usersCart/${userId}`);
@@ -127,7 +127,7 @@ export const addToOrder = (userId, productId, pTitle, pPrice) => {
           return;
         }
         const res = await jsonServer.put(`/usersCart/${userId}`, {
-          order: [...oldOrder, { productId, pTitle, pPrice }],
+          order: [...oldOrder, { productId, pTitle, pPrice, pCategory }],
           cart: resget.data.cart,
         });
 
@@ -135,7 +135,7 @@ export const addToOrder = (userId, productId, pTitle, pPrice) => {
       } else {
         const res = await jsonServer.put(`/usersCart/${userId}`, {
           id: userId,
-          order: [{ productId, pTitle, pPrice }],
+          order: [{ productId, pTitle, pPrice, pCategory }],
           cart: resget.data.cart,
         });
         console.log("else", res);
@@ -145,7 +145,7 @@ export const addToOrder = (userId, productId, pTitle, pPrice) => {
       console.log(e);
       const res = await jsonServer.post("/usersCart", {
         id: userId,
-        order: [{ productId, pTitle, pPrice }],
+        order: [{ productId, pTitle, pPrice, pCategory }],
       });
       console.log("post", res.data);
       // dispatch({ type: BUY_PRODUCT, payload: res.data.order });

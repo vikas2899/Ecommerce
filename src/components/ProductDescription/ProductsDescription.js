@@ -13,22 +13,35 @@ class ProductsDescription extends Component {
   };
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     const { id } = this.props.match.params;
     this.props.fetchProductById(id);
   }
 
-  addToCart = (productId, pTitle, pPrice) => {
+  addToCart = (productId, pTitle, pPrice, pCategory) => {
     if (this.props.auth.isSignedIn) {
-      this.props.addToCart(this.props.auth.userId, productId, pTitle, pPrice);
+      this.props.addToCart(
+        this.props.auth.userId,
+        productId,
+        pTitle,
+        pPrice,
+        pCategory
+      );
       this.setState({ isModalOpen: true });
     } else {
       this.setState({ isLoginModal: true });
     }
   };
 
-  buyItem = (productId, pTitle, pPrice) => {
+  buyItem = (productId, pTitle, pPrice, pCategory) => {
     if (this.props.auth.isSignedIn) {
-      this.props.addToOrder(this.props.auth.userId, productId, pTitle, pPrice);
+      this.props.addToOrder(
+        this.props.auth.userId,
+        productId,
+        pTitle,
+        pPrice,
+        pCategory
+      );
       this.setState({ isBuyClick: true });
     } else {
       this.setState({ isLoginModal: true });
@@ -71,7 +84,8 @@ class ProductsDescription extends Component {
               this.addToCart(
                 this.props.productDetails.data.id,
                 this.props.productDetails.data.title,
-                this.props.productDetails.data.price
+                this.props.productDetails.data.price,
+                this.props.productDetails.data.category
               )
             }
           >
@@ -83,7 +97,8 @@ class ProductsDescription extends Component {
               this.buyItem(
                 this.props.productDetails.data.id,
                 this.props.productDetails.data.title,
-                this.props.productDetails.data.price
+                this.props.productDetails.data.price,
+                this.props.productDetails.data.category
               )
             }
           >
@@ -210,10 +225,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchProductById: (id) => dispatch(fetchProductById(id)),
-    addToCart: (userId, pid, ptitle, pprice) =>
-      dispatch(addToCart(userId, pid, ptitle, pprice)),
-    addToOrder: (userId, pid, ptitle, pprice) =>
-      dispatch(addToOrder(userId, pid, ptitle, pprice)),
+    addToCart: (userId, pid, ptitle, pprice, pCategory) =>
+      dispatch(addToCart(userId, pid, ptitle, pprice, pCategory)),
+    addToOrder: (userId, pid, ptitle, pprice, pCategory) =>
+      dispatch(addToOrder(userId, pid, ptitle, pprice, pCategory)),
   };
 };
 
